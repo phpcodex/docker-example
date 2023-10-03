@@ -1,0 +1,44 @@
+version: "3.2"
+services:
+  composer:
+    build: './composer/'
+    container_name: phpcodex_composer
+    networks:
+      - backend
+    depends_on:
+      - php
+    volumes:
+      - ./public_html/:/var/www/html/
+    working_dir: /var/www/html/
+    command: composer install --ignore-platform-reqs
+  php:
+    build: './php/'
+    container_name: phpcodex_php
+    networks:
+      - backend
+    volumes:
+      - ./public_html/:/var/www/html/
+  apache:
+    build: './apache/'
+    container_name: phpcodex_apache
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public_html/:/var/www/html/
+  mysql:
+    container_name: phpcodex_db
+    platform: linux/x86_64
+    image: mysql:5.6.40
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+networks:
+  frontend:
+  backend:
