@@ -1,2 +1,4 @@
 .idea/
 public_html/vendor
+.env
+.DS_Store

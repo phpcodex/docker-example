@@ -30,4 +30,5 @@ echo 'Our environment is: ' . $env . '<br />';
 echo 'Our config URL is: this was required. ' . $url . '<br />';
 echo '<a href="phpinfo.php">php info</a><br />';
 echo 'Host: ' . $_SERVER['HTTP_HOST'] . '<br />';
+echo 'Env: ' . getenv('APP_URL') . '<br />';
 echo phpversion();
